@@ -1,7 +1,3 @@
-from PMS import *
-from PMS.Objects import *
-from PMS.Shortcuts import *
-
 PLUGIN_PREFIX   = "/photos/FoodPornDaily"
 RSS_FEED        = "http://feeds.feedburner.com/foodporndaily"
 
@@ -18,7 +14,7 @@ def Start():
 def MainMenu():
   dir = MediaContainer()
   for item in XML.ElementFromURL(RSS_FEED).xpath('//item'):
-    node = XML.ElementFromString(item.xpath('./description')[0].text, True)
+    node = HTML.ElementFromString(item.xpath('./description')[0].text)
     summary = ' '.join(node.xpath("//text()")).replace('\n','').strip()
     thumb = node.xpath("//img")[0].get('src')
     title = item.xpath('./title')[0].text
